@@ -13,6 +13,7 @@ Small library for making requests to Wykop API v2.
     * [Hot Entries](#hot-entries)
     * [Post New Entrie](#post-new-entrie)
     * [Get Upvoters](#get-upvoters)
+    * [Async Await](#async-await)
 6. [License](#license)
 
 ## Install
@@ -234,4 +235,33 @@ API.request({
   .catch(err => console.log(err))
 })
 .catch(err => console.log(err))
+```
+
+### Async Await
+
+```javascript
+(async function() {
+  const Wykop = require('wykop-nodejs')
+  try {
+    const API = new Wykop({
+      appSecret: 'your-appsecret',
+      appKey: 'your-appkey'
+    })
+    await API.request({
+      requestMethod: 'POST',
+      urlParams: ['Login', 'Index'],
+      postParams: {
+        accountkey: 'your-accountkey'
+      }
+    })
+    const response = await API.request({
+      requestMethod: 'POST',
+      urlParams: ['Profiles', 'Observe'],
+      apiParams: ['schriker'],
+    })
+    console.log(response)
+  } catch (err) {
+    console.log(err)
+  }
+})()
 ```

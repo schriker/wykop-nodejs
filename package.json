@@ -1,6 +1,6 @@
 {
   "name": "wykop-nodejs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://github.com/schriker/wykop-nodejs",
   "description": "Simple Wykop API v2",
   "main": "./dist/index.js",
