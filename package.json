@@ -1,8 +1,9 @@
 {
   "name": "wykop-nodejs",
-  "version": "1.0.0",
+  "version": "1.0.2",
+  "homepage": "https://github.com/schriker/wykop-nodejs",
   "description": "Simple Wykop API v2",
-  "main": "/dist/index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
     "start": "nodemon ./dist/index.js",
@@ -10,7 +11,11 @@
     "lint": "tsc --noEmit && eslint \"src/*.{js,ts}\" --quiet --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": 
+  { "name" : "Marcin Janus", 
+    "email" : "janekmachine@gmail.com", 
+    "url" : "https://janusmarcin.pl/"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^12.7.5",

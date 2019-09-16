@@ -22,9 +22,11 @@ type requestObject = {
 
 type requestData = {
   requestMethod: requestMethod, 
-  apiParams: string[], 
+  urlParams: string[],
+  fullData?: boolean, 
   namedParams?: paramsObject | undefined, 
-  postParams?: {[key: string]: string | number}
+  postParams?: {[key: string]: string | number},
+  apiParams?: string[] | undefined
 }
 
 class Wykop {
@@ -37,13 +39,17 @@ class Wykop {
     this.appKey = appKey
   }
 
-  private createUrl (apiParams: string[], namedParams: paramsObject | undefined): string {
+  private createUrl (urlParams: string[], namedParams: paramsObject | undefined, apiParams: string[] | undefined, fullData: boolean | undefined): string {
     let joinedNamedParams: string = ''
-    const baseUrl = `https://a2.wykop.pl/${apiParams.join('/')}/appkey/${this.appKey}/userkey/${this.userKey}`
+    let joinedApiParams: string = ''
+    const baseUrl = `https://a2.wykop.pl/${urlParams.join('/')}`
     if (namedParams) {
-      joinedNamedParams = Object.entries(namedParams).map(([ key, value ]) => `${key}/${value}`).join('/')
+      joinedNamedParams = Object.entries(namedParams).map(([ key, value ]) => `/${key}/${value}`).join('')
     }
-    return `${baseUrl}/${joinedNamedParams}`
+    if (apiParams) {
+      joinedApiParams = `/${apiParams.join('/')}`
+    }
+    return `${baseUrl}${joinedApiParams}${joinedNamedParams}/appkey/${this.appKey}/userkey/${this.userKey}/data/${fullData ? 'full' : 'compact'}`
   }
 
   private createApiSign (requestUrl: string, postParams?: {[key: string]: string | number}): string {
@@ -67,9 +73,9 @@ class Wykop {
       })
   }
 
-  public request({ requestMethod, apiParams, namedParams, postParams }: requestData): Promise<any> {
+  public request({ requestMethod, urlParams, namedParams, postParams, apiParams, fullData }: requestData): Promise<any> {
     return new Promise((resolve, reject) => {
-      const url = this.createUrl(apiParams, namedParams)
+      const url = this.createUrl(urlParams, namedParams, apiParams, fullData)
       const apiSign = this.createApiSign(url, postParams)
       const request: requestObject = {
         requestMethod: requestMethod,
@@ -81,7 +87,7 @@ class Wykop {
         .then((res) => {
           if (res.data.data === null) {
             reject(res)
-          } else if (apiParams[0].toLowerCase() === 'login') {
+          } else if (urlParams[0].toLowerCase() === 'login') {
             this.userKey = res.data.data.userkey
             resolve(res.data)
           } else {
