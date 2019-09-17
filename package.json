@@ -1,9 +1,10 @@
 {
   "name": "wykop-nodejs",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "homepage": "https://github.com/schriker/wykop-nodejs",
   "description": "Simple Wykop API v2",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "start": "nodemon ./dist/index.js",

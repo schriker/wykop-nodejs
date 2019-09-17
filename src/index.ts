@@ -25,7 +25,7 @@ type requestData = {
   urlParams: string[],
   fullData?: boolean, 
   namedParams?: paramsObject | undefined, 
-  postParams?: {[key: string]: string | number},
+  postParams?: paramsObject,
   apiParams?: string[] | undefined
 }
 
