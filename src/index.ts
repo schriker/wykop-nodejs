@@ -1,5 +1,5 @@
 const axios = require('axios')
-const qs = require('querystring')
+const qs = require('qs')
 const md5 = require('md5')
 
 type apiConfig = {

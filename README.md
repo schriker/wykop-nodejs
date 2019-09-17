@@ -14,7 +14,6 @@ Small library for making requests to Wykop API v2.
     * [Post New Entrie](#post-new-entrie)
     * [Get Upvoters](#get-upvoters)
     * [Async Await](#async-await)
-6. [License](#license)
 
 ## Install
 
